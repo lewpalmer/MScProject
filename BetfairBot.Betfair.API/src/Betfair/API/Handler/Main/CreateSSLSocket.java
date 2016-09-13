@@ -1,5 +1,6 @@
 package Betfair.API.Handler.Main;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -23,11 +24,11 @@ public class CreateSSLSocket {
 	{
 		this.certificateLocation = location;
 		this.certificatePassword = password;
-		FileInputStream keyStream = null;
+		
 		try{
 		KeyStore clientStore = KeyStore.getInstance("PKCS12");
-        keyStream = new FileInputStream(this.certificateLocation);
-        clientStore.load(keyStream, this.certificatePassword.toCharArray());
+        
+        clientStore.load(new FileInputStream(this.certificateLocation), this.certificatePassword.toCharArray());
 
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
         kmf.init(clientStore, this.certificatePassword.toCharArray());
@@ -41,7 +42,7 @@ public class CreateSSLSocket {
 		}
 		catch(IOException ex)
 		{
-			
+			ex.printStackTrace();
 		} catch (KeyStoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,13 +58,9 @@ public class CreateSSLSocket {
 		} catch (KeyManagementException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally
+		} catch(Exception e)
 		{
-			try{
-				keyStream.close();
-			}
-			catch(Exception ex){}
+			e.printStackTrace();
 		}
 	}
 	

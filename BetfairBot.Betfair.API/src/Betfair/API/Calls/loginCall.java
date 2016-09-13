@@ -7,11 +7,11 @@ import Betfair.API.Utilities.BetfairAPIMethodNames;
 import Betfair.API.Utilities.EndPoints;
 import Betfair.API.Handler.Main.*;
 
-public class LoginCall extends APICall<LoginResponse> {
+public class loginCall extends APICall<LoginResponse> {
 
 	private CreateSSLSocket sslSocket;
 	
-	public LoginCall(LoginRequest request, String filepath, String password)
+	public loginCall(BetfairAPICredentials bfCreds, LoginRequest request, String filepath, String password)
 	{
 		this.EndPoint = EndPoints.LogInAPI;
 		this.GetOutput = true;
@@ -19,5 +19,6 @@ public class LoginCall extends APICall<LoginResponse> {
 		this.MethodName = BetfairAPIMethodNames.LOGIN;
 		this.request = request;
 		this.sslSocket = new CreateSSLSocket(filepath, password);
+		this.bfCreds = bfCreds;
 	}
 }
