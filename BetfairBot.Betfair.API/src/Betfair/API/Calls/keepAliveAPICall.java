@@ -28,7 +28,7 @@ public class keepAliveAPICall extends APICall<keepAliveResponse> {
 	@Override
 	public boolean call()
 	{
-		BuildBetfairAPICall apiReq = new BuildKeepAliveCall(EndPoint, MethodName, method, GetOutput, this.bfCredentials);
+		BuildBetfairAPICall apiReq = new BuildKeepAliveCall(bfCredentials, EndPoint, MethodName, method, GetOutput, this.bfCredentials);
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());
 		BetfairAPIResponse<keepAliveResponse> apiResponse = new Gson().fromJson(apiCall.GetResponse(), callResponse.getClass());
 		this.response = (keepAliveResponse)apiResponse.retrieveData(response);
