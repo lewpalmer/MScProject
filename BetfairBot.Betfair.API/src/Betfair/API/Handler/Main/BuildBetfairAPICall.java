@@ -23,6 +23,7 @@ public class BuildBetfairAPICall {
 	protected HttpURLConnection apiConnection;
 	protected final String APIHeader = "X-Application";
 	protected final String APIHeader2 = "Accept";
+	protected final String APIHeader3 = "X-Authentication";
 
 	/**
 	 * Constructor to build the request for the Betfair API Call. Builds a HTTPConnection.
@@ -32,19 +33,22 @@ public class BuildBetfairAPICall {
 	 * @param GetOutput
 	 * @param requestHeaders
 	 */
-	public BuildBetfairAPICall(String EndPoint, String MethodName, APIMethod method, Boolean GetOutput){
+	public BuildBetfairAPICall(BetfairAPICredentials bfCredentials, String EndPoint, String MethodName, APIMethod method, Boolean GetOutput){
 		
 		try {
 			apiURL = new URL(EndPoint+MethodName);
 			apiConnection = (HttpURLConnection)apiURL.openConnection();
-			
+			apiConnection.setRequestMethod(method.getValue());
+			apiConnection.setConnectTimeout(5000);
+			apiConnection.setReadTimeout(5000);
 			apiConnection.setDoInput(GetOutput);
 			apiConnection.setDoOutput(GetOutput);
 			
 			apiConnection.setRequestMethod(method.getValue());
 			
-			apiConnection.setRequestProperty(APIHeader, "application/json");
+			apiConnection.setRequestProperty(APIHeader, bfCredentials.GetApplicationKey());
 			apiConnection.setRequestProperty(APIHeader2, "application/json");
+			apiConnection.setRequestProperty(APIHeader3, bfCredentials.GetSessionID());
 			
 			
 		} catch (Exception e) {

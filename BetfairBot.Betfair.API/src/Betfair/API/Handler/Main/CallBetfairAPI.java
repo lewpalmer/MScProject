@@ -14,6 +14,7 @@ public class CallBetfairAPI {
 	{
 		BufferedReader in;
 		try {
+			apiConnection.connect();
 			in = new BufferedReader(new InputStreamReader(apiConnection.getInputStream()));
 		
 	        String inputLine;
@@ -26,6 +27,12 @@ public class CallBetfairAPI {
         apiResponse = response.toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			try {
+				System.out.print(apiConnection.getResponseCode());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 	}

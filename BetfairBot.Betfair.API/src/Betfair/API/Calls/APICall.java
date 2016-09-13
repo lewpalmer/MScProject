@@ -16,10 +16,11 @@ public abstract class APICall<T> {
 	protected BetfairRequest request;
 	protected T response;
 	protected BetfairAPIResponse<T> callResponse;
+	protected BetfairAPICredentials bfCreds;
 	
 	public boolean call()
 	{
-		BuildBetfairAPICall apiReq = new BuildBetfairAPICall(EndPoint, MethodName, method, GetOutput);
+		BuildBetfairAPICall apiReq = new BuildBetfairAPICall(bfCreds, EndPoint, MethodName, method, GetOutput);
 		apiReq.AddParameters(request);
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());
 		BetfairAPIResponse<T> apiResponse = new Gson().fromJson(apiCall.GetResponse(), callResponse.getClass());

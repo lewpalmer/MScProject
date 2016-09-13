@@ -4,7 +4,7 @@ public class BetfairAPICredentials {
 
 	private String username;
 	private String password;
-	private String APIKey;
+	private String applicationKey;
 	private String SessionID;
 	
 	public void SetUsername(String username)
@@ -17,9 +17,9 @@ public class BetfairAPICredentials {
 		this.password = password;
 	}
 	
-	public void SetAPIKey(String key)
+	public void SetApplicationKey(String key)
 	{
-		this.APIKey = key;
+		this.applicationKey = key;
 	}
 	
 	public void SetSessionID(String sessionID)
@@ -37,9 +37,9 @@ public class BetfairAPICredentials {
 		return this.password;
 	}
 	
-	public String GetAPIKey()
+	public String GetApplicationKey()
 	{
-		return this.APIKey;
+		return this.applicationKey;
 	}
 	
 	public String GetSessionID()

@@ -7,8 +7,8 @@ import Betfair.API.Utilities.APIMethod;
 
 public class BuildKeepAliveCall extends BuildBetfairAPICall {
 	
-	public BuildKeepAliveCall(String EndPoint, String MethodName, APIMethod method, Boolean GetOutput, BetfairAPICredentials bfCred) {
-		super(MethodName, MethodName, method, GetOutput);
+	public BuildKeepAliveCall(BetfairAPICredentials bfCreds, String EndPoint, String MethodName, APIMethod method, Boolean GetOutput, BetfairAPICredentials bfCred) {
+		super(bfCreds, MethodName, MethodName, method, GetOutput);
 		try {
 				apiURL = new URL(EndPoint+MethodName);
 				apiConnection = (HttpURLConnection)apiURL.openConnection();
