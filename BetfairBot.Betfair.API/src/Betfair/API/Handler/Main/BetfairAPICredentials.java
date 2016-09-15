@@ -6,6 +6,8 @@ public class BetfairAPICredentials {
 	private String password;
 	private String applicationKey;
 	private String SessionID;
+	private String certificateLocation;
+	private String certificatePasscode;
 	
 	public void SetUsername(String username)
 	{
@@ -46,4 +48,25 @@ public class BetfairAPICredentials {
 	{
 		return this.SessionID;
 	}
+	
+	public void SetCertificateLocation(String location)
+	{
+		this.certificateLocation = location;
+	}
+	
+	public String GetCertificateLocation()
+	{
+		return this.certificateLocation;
+	}
+	
+	public void SetCertificatePasscode(String passcode)
+	{
+		this.certificatePasscode = passcode;
+	}
+	
+	public String GetCertificatePasscode()
+	{
+		return this.certificatePasscode;
+	}
+	
 }

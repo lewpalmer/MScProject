@@ -32,6 +32,6 @@ public class keepAliveAPICall extends APICall<keepAliveResponse> {
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());
 		BetfairAPIResponse<keepAliveResponse> apiResponse = new Gson().fromJson(apiCall.GetResponse(), callResponse.getClass());
 		this.response = (keepAliveResponse)apiResponse.retrieveData(response);
-		return apiResponse.checkForError();
+		return apiResponse.hasNoError();
 	}
 }

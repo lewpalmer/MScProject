@@ -25,7 +25,7 @@ public abstract class APICall<T> {
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());
 		BetfairAPIResponse<T> apiResponse = new Gson().fromJson(apiCall.GetResponse(), callResponse.getClass());
 		this.response = (T)apiResponse.retrieveData(response);
-		return apiResponse.checkForError();
+		return apiResponse.hasNoError();
 	}
 	
 	public T getData()

@@ -11,15 +11,15 @@ public class BetfairAPIResponse<T> {
     public T retrieveData(T sentClass)
     {
     	this.usedClass = sentClass;
-    	if(!hasError && result != null)
+    	if(result != null)
     		return (T) new Gson().fromJson(result, usedClass.getClass());
     	else
     		return null;
     }
     
-    public boolean checkForError()
+    public boolean hasNoError()
     {
-    	return hasError;
+    	return !hasError;
     }
     
     public String getJsonRPC()

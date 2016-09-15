@@ -4,13 +4,13 @@ package Betfair.API.Handler.Main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 
 public class CallBetfairAPI {
 	
 	private String apiResponse;
 	
-	public CallBetfairAPI(HttpURLConnection apiConnection)
+	public CallBetfairAPI(HttpsURLConnection apiConnection)
 	{
 		BufferedReader in;
 		try {

@@ -2,11 +2,12 @@ package Betfair.API.Handler.Main;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import Betfair.API.Requests.BetfairRequest;
 import Betfair.API.Utilities.APIMethod;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import com.google.gson.Gson;
 
@@ -20,7 +21,7 @@ import com.google.gson.Gson;
 public class BuildBetfairAPICall {
 	
 	protected URL apiURL;
-	protected HttpURLConnection apiConnection;
+	protected HttpsURLConnection apiConnection;
 	protected final String APIHeader = "X-Application";
 	protected final String APIHeader2 = "Accept";
 	protected final String APIHeader3 = "X-Authentication";
@@ -37,7 +38,7 @@ public class BuildBetfairAPICall {
 		
 		try {
 			apiURL = new URL(EndPoint+MethodName);
-			apiConnection = (HttpURLConnection)apiURL.openConnection();
+			apiConnection = (HttpsURLConnection)apiURL.openConnection();
 			apiConnection.setRequestMethod(method.getValue());
 			apiConnection.setConnectTimeout(5000);
 			apiConnection.setReadTimeout(5000);
@@ -49,6 +50,7 @@ public class BuildBetfairAPICall {
 			apiConnection.setRequestProperty(APIHeader, bfCredentials.GetApplicationKey());
 			apiConnection.setRequestProperty(APIHeader2, "application/json");
 			apiConnection.setRequestProperty(APIHeader3, bfCredentials.GetSessionID());
+			
 			
 			
 		} catch (Exception e) {
@@ -64,10 +66,11 @@ public class BuildBetfairAPICall {
 	public void AddParameters(BetfairRequest request)
 	{
 		Gson parameters = new Gson();
-		OutputStreamWriter wr;
+		OutputStreamWriter wr = null;
 		try {
 			wr = new OutputStreamWriter(apiConnection.getOutputStream());
 			wr.write(parameters.toJson(request));
+			
 			wr.flush();
 			wr.close();
 		} catch (IOException e) {
@@ -76,7 +79,11 @@ public class BuildBetfairAPICall {
 		}
 	}
 	
-	public HttpURLConnection GetAPIConnection()
+	/**
+	 * Getter for the returned API response
+	 * @return the API response, with nested data.
+	 */
+	public HttpsURLConnection GetAPIConnection()
 	{
 		return this.apiConnection;
 	}

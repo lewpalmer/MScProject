@@ -3,6 +3,8 @@ package Betfair.API.Handler.Main;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import Betfair.API.Utilities.APIMethod;
 
 public class BuildKeepAliveCall extends BuildBetfairAPICall {
@@ -11,7 +13,7 @@ public class BuildKeepAliveCall extends BuildBetfairAPICall {
 		super(bfCreds, MethodName, MethodName, method, GetOutput);
 		try {
 				apiURL = new URL(EndPoint+MethodName);
-				apiConnection = (HttpURLConnection)apiURL.openConnection();
+				apiConnection = (HttpsURLConnection)apiURL.openConnection();
 				
 				apiConnection.setDoInput(GetOutput);
 				apiConnection.setDoOutput(GetOutput);
