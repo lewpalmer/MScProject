@@ -16,6 +16,7 @@ import Betfair.API.Handler.Main.*;
 public class loginCall extends APICall<LoginResponse> {
 
 	private CreateSSLSocket sslSocket;
+	private boolean loggedIn = false;
 	
 	public loginCall(BetfairAPICredentials bfCreds, LoginRequest request)
 	{
@@ -47,6 +48,17 @@ public class loginCall extends APICall<LoginResponse> {
 		}
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());
 		this.response = new Gson().fromJson(apiCall.GetResponse(), this.response.getClass());
-		return this.response.getloginStatus().equals("SUCCESS");
+		boolean success = this.response.getloginStatus().equals("SUCCESS");
+		if(success)
+			this.bfCreds.SetSessionID(this.response.getSessionToken());
+		this.loggedIn = success;
+		return success;
+	}
+	
+	public BetfairAPICredentials getLoggedInCredentials()
+	{
+		if(this.loggedIn)
+			return this.bfCreds;
+		return null;
 	}
 }

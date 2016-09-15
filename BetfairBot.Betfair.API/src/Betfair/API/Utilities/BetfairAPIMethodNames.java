@@ -11,5 +11,5 @@ public class BetfairAPIMethodNames {
 	public static final String PLACE_ORDERS = "placeOrders";
 	public static final String UPDATE_ORDERS = "updateOrders";
 	public static final String CANCEL_ORDERS = "cancelOrders";
-	public static final String KEEP_ALIVE = "keepAlive";
+	public static final String KEEP_ALIVE = "";
 }

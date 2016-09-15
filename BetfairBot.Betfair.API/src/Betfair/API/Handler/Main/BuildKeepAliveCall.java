@@ -1,6 +1,5 @@
 package Betfair.API.Handler.Main;
 
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -10,7 +9,7 @@ import Betfair.API.Utilities.APIMethod;
 public class BuildKeepAliveCall extends BuildBetfairAPICall {
 	
 	public BuildKeepAliveCall(BetfairAPICredentials bfCreds, String EndPoint, String MethodName, APIMethod method, Boolean GetOutput, BetfairAPICredentials bfCred) {
-		super(bfCreds, MethodName, MethodName, method, GetOutput);
+		super(bfCreds, EndPoint, MethodName, method, GetOutput);
 		try {
 				apiURL = new URL(EndPoint+MethodName);
 				apiConnection = (HttpsURLConnection)apiURL.openConnection();
@@ -20,8 +19,9 @@ public class BuildKeepAliveCall extends BuildBetfairAPICall {
 				
 				apiConnection.setRequestMethod(method.getValue());
 				
-				apiConnection.setRequestProperty(APIHeader, "application/json");
-				apiConnection.setRequestProperty("X-Authentication", bfCred.GetSessionID());
+				apiConnection.setRequestProperty(APIHeader, bfCreds.GetApplicationKey());
+				apiConnection.setRequestProperty(APIHeader2, "application/json");
+				apiConnection.setRequestProperty(APIHeader3, bfCreds.GetSessionID());
 				
 				
 			} catch (Exception e) {

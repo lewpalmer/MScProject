@@ -12,6 +12,7 @@ import Betfair.API.Responses.keepAliveResponse;
 import Betfair.API.Utilities.APIMethod;
 import Betfair.API.Utilities.BetfairAPIMethodNames;
 import Betfair.API.Utilities.EndPoints;
+import Betfair.API.Utilities.keepAliveStatus;
 
 public class keepAliveAPICall extends APICall<keepAliveResponse> {
 	private BetfairAPICredentials bfCredentials;
@@ -23,6 +24,7 @@ public class keepAliveAPICall extends APICall<keepAliveResponse> {
 		this.MethodName = BetfairAPIMethodNames.KEEP_ALIVE;
 		this.GetOutput = true;
 		this.bfCredentials = bfCred;
+		this.response = new keepAliveResponse();
 	}
 	
 	@Override
@@ -30,8 +32,8 @@ public class keepAliveAPICall extends APICall<keepAliveResponse> {
 	{
 		BuildBetfairAPICall apiReq = new BuildKeepAliveCall(bfCredentials, EndPoint, MethodName, method, GetOutput, this.bfCredentials);
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());
-		BetfairAPIResponse<keepAliveResponse> apiResponse = new Gson().fromJson(apiCall.GetResponse(), callResponse.getClass());
-		this.response = (keepAliveResponse)apiResponse.retrieveData(response);
-		return apiResponse.hasNoError();
+		this.response = new Gson().fromJson(apiCall.GetResponse(), response.getClass());
+		boolean success = this.response.getStatus().equals(keepAliveStatus.SUCCESS);
+		return success;
 	}
 }
