@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 
 import Betfair.API.Handler.Main.*;
 import Betfair.API.Requests.BetfairRequest;
-import Betfair.API.Responses.BetfairAPIResponse;
-import Betfair.API.Responses.BetfairResponse;
 import Betfair.API.Utilities.APIMethod;
 
 public abstract class APICall<T> {
@@ -15,17 +13,15 @@ public abstract class APICall<T> {
 	protected boolean GetOutput;
 	protected BetfairRequest request;
 	protected T response;
-	protected BetfairAPIResponse<T> callResponse;
 	protected BetfairAPICredentials bfCreds;
 	
-	public boolean call()
+	public boolean call() throws Exception
 	{
 		BuildBetfairAPICall apiReq = new BuildBetfairAPICall(bfCreds, EndPoint, MethodName, method, GetOutput);
 		apiReq.AddParameters(request);
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());
-		BetfairAPIResponse<T> apiResponse = new Gson().fromJson(apiCall.GetResponse(), callResponse.getClass());
-		this.response = (T)apiResponse.retrieveData(response);
-		return apiResponse.hasNoError();
+		this.response = (T) new Gson().fromJson(apiCall.GetResponse(), response.getClass());
+		return this.response != null;
 	}
 	
 	public T getData()

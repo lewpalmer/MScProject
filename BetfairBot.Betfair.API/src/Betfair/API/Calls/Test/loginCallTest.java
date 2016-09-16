@@ -14,7 +14,7 @@ public class loginCallTest {
 	/**
 	 * Unit test for logging in.
 	 */
-	public void testSuccessfulLogIn()
+	public void testSuccessfulLogIn() throws Exception
 	{
 		BetfairAPICredentials testBFCreds = loadBetfairCredentialsFile.loadUserCredentials();
 		loginCall testCall = new loginCall(testBFCreds, new LoginRequest(testBFCreds.GetUsername(), testBFCreds.GetPassword()));

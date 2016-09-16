@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 
+import Betfair.API.Exceptions.BuildAPIException;
 import Betfair.API.Requests.BetfairRequest;
 import Betfair.API.Utilities.APIMethod;
 
@@ -33,11 +34,15 @@ public class BuildBetfairAPICall {
 	 * @param method
 	 * @param GetOutput
 	 * @param requestHeaders
+	 * @throws BuildAPIException 
 	 */
-	public BuildBetfairAPICall(BetfairAPICredentials bfCredentials, String EndPoint, String MethodName, APIMethod method, Boolean GetOutput){
+	public BuildBetfairAPICall(BetfairAPICredentials bfCredentials, String EndPoint, String MethodName, APIMethod method, Boolean GetOutput) throws BuildAPIException{
 		
 		try {
-			apiURL = new URL(EndPoint+MethodName);
+			if(MethodName.equals(""))
+				apiURL = new URL(EndPoint);
+			else
+				apiURL = new URL(EndPoint + MethodName);
 			apiConnection = (HttpsURLConnection)apiURL.openConnection();
 			apiConnection.setRequestMethod(method.getValue());
 			apiConnection.setConnectTimeout(5000);
@@ -51,31 +56,34 @@ public class BuildBetfairAPICall {
 			apiConnection.setRequestProperty(APIHeader2, "application/json");
 			apiConnection.setRequestProperty(APIHeader3, bfCredentials.GetSessionID());
 			
-			
-			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new BuildAPIException(MethodName, e.getMessage());
 		}
 	}
 	
 	/**
 	 * Adds request parameters from the Map to the JSON object to be sent.
 	 * @param requestParameters Map<String, String> or required parameters.
+	 * @throws BuildAPIException 
 	 */
-	public void AddParameters(BetfairRequest request)
+	public void AddParameters(BetfairRequest request) throws BuildAPIException
 	{
 		Gson parameters = new Gson();
 		OutputStreamWriter wr = null;
+		apiConnection.setRequestProperty("Content-Type", "application/json");
 		try {
 			wr = new OutputStreamWriter(apiConnection.getOutputStream());
-			wr.write(parameters.toJson(request));
+			String jsonP = parameters.toJson(request);
+			wr.write(parameters.toJson(request).toString());
 			
 			wr.flush();
 			wr.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				throw new BuildAPIException(apiConnection.getRequestMethod(), String.format("AddParams - %s", e.getMessage()));
+			} catch (Exception ex) {
+				throw new BuildAPIException("Error retrieving request method");
+			}
 		}
 	}
 	

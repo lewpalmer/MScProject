@@ -7,7 +7,6 @@ import Betfair.API.Handler.Main.BetfairAPICredentials;
 import Betfair.API.Handler.Main.BuildBetfairAPICall;
 import Betfair.API.Handler.Main.BuildKeepAliveCall;
 import Betfair.API.Handler.Main.CallBetfairAPI;
-import Betfair.API.Responses.BetfairAPIResponse;
 import Betfair.API.Responses.keepAliveResponse;
 import Betfair.API.Utilities.APIMethod;
 import Betfair.API.Utilities.BetfairAPIMethodNames;
@@ -28,7 +27,7 @@ public class keepAliveAPICall extends APICall<keepAliveResponse> {
 	}
 	
 	@Override
-	public boolean call()
+	public boolean call() throws Exception
 	{
 		BuildBetfairAPICall apiReq = new BuildKeepAliveCall(bfCredentials, EndPoint, MethodName, method, GetOutput, this.bfCredentials);
 		CallBetfairAPI apiCall = new CallBetfairAPI(apiReq.GetAPIConnection());

@@ -27,15 +27,13 @@ public class loginCall extends APICall<LoginResponse> {
 		this.request = request;
 		this.sslSocket = new CreateSSLSocket(bfCreds.GetCertificateLocation(), bfCreds.GetCertificatePasscode());
 		this.bfCreds = bfCreds;
-		this.callResponse = new BetfairAPIResponse<LoginResponse>();
 		this.response = new LoginResponse();
 	}
 	
 	@Override
-	public boolean call()
+	public boolean call() throws Exception
 	{
 		BuildBetfairAPICall apiReq = new BuildBetfairAPICall(bfCreds, EndPoint, MethodName, method, GetOutput);
-		Gson parameters = new Gson();
 		OutputStreamWriter wr = null;
 		try {
 			wr = new OutputStreamWriter(apiReq.GetAPIConnection().getOutputStream());

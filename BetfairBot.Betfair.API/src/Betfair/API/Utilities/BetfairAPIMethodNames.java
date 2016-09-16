@@ -2,7 +2,7 @@ package Betfair.API.Utilities;
 
 public class BetfairAPIMethodNames {
 	public static final String LOGIN = "";
-	public static final String GET_ACCOUNT_BALANCE = "getAccountBalance";
+	public static final String GET_ACCOUNT_BALANCE = "getAccountFunds/";
 	public static final String LIST_EVENT_TYPES = "listEventTypes";
 	public static final String LIST_EVENTS = "listEvents";
 	public static final String LIST_MARKET_CATALOGUE = "listMarketCatalogue";

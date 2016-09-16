@@ -6,34 +6,52 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.net.ssl.HttpsURLConnection;
 
+import Betfair.API.Exceptions.CallAPIException;
+import Betfair.API.Utilities.ResponseCodes;
+
 public class CallBetfairAPI {
 	
 	private String apiResponse;
 	
-	public CallBetfairAPI(HttpsURLConnection apiConnection)
+	public CallBetfairAPI(HttpsURLConnection apiConnection) throws CallAPIException
 	{
 		BufferedReader in;
+		StringBuffer response;
 		try {
 			apiConnection.connect();
-			in = new BufferedReader(new InputStreamReader(apiConnection.getInputStream()));
+			try{
+				in = new BufferedReader(new InputStreamReader(apiConnection.getInputStream()));
+			}
+			catch(IOException e)
+			{
+				try {
+					throw new CallAPIException(apiConnection.getResponseCode(), apiConnection.getRequestMethod(), "Error in getInputStream");
+				} catch (CallAPIException e1) {
+					throw new CallAPIException("Error getting request method and/or code");
+				}
+			}
 		
 	        String inputLine;
-	        StringBuffer response = new StringBuffer();
-	
-	        while ((inputLine = in.readLine()) != null) {
-	            response.append(inputLine);
-        }
-        in.close();
-        apiResponse = response.toString();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			try {
-				System.out.print(apiConnection.getResponseCode());
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+	        response = new StringBuffer();
+	        try{
+	        	while ((inputLine = in.readLine()) != null) {
+		            response.append(inputLine);
+	        	}
+	        }
+        	catch(IOException e)
+			{
+				try {
+					throw new CallAPIException(apiConnection.getRequestMethod(), "Error in reading response");
+				} catch (CallAPIException e1) {
+					throw new CallAPIException("Error getting request method");
+				}
 			}
-			e.printStackTrace();
+	        in.close();
+	        if(response != null && apiConnection.getResponseCode() == ResponseCodes.OK)
+	        	apiResponse = response.toString();
+		}
+        catch (IOException e) {
+			throw new CallAPIException("Unknown error processing call API");
 		}
 	}
 	

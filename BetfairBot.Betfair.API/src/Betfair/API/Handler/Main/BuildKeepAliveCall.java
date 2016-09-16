@@ -4,11 +4,12 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import Betfair.API.Exceptions.BuildAPIException;
 import Betfair.API.Utilities.APIMethod;
 
 public class BuildKeepAliveCall extends BuildBetfairAPICall {
 	
-	public BuildKeepAliveCall(BetfairAPICredentials bfCreds, String EndPoint, String MethodName, APIMethod method, Boolean GetOutput, BetfairAPICredentials bfCred) {
+	public BuildKeepAliveCall(BetfairAPICredentials bfCreds, String EndPoint, String MethodName, APIMethod method, Boolean GetOutput, BetfairAPICredentials bfCred) throws BuildAPIException {
 		super(bfCreds, EndPoint, MethodName, method, GetOutput);
 		try {
 				apiURL = new URL(EndPoint+MethodName);

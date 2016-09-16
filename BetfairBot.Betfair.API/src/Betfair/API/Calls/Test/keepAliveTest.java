@@ -10,7 +10,7 @@ import Betfair.API.Handler.Main.BetfairAPICredentials;
 public class keepAliveTest extends BetfairAPICallTest {
 
 	@Test
-	public void testSuccessfulCall()
+	public void testSuccessfulCall() throws Exception
 	{
 		keepAliveAPICall testCall = new keepAliveAPICall(this.loggedinCreds);
 		boolean successfulCall = testCall.call();

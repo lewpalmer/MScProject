@@ -2,6 +2,7 @@ package Betfair.API.Calls;
 
 import java.util.List;
 
+import Betfair.API.Handler.Main.BetfairAPICredentials;
 import Betfair.API.Requests.cancelOrdersRequest;
 import Betfair.API.Responses.cancelOrdersResponse;
 import Betfair.API.Utilities.APIMethod;
@@ -11,7 +12,7 @@ import Betfair.API.Utilities.EndPoints;
 
 public class cancelOrdersCall extends APICall<cancelOrdersResponse> {
 
-	public cancelOrdersCall(String mktId, List<CancelInstruction> instructions, String custRef)
+	public cancelOrdersCall(BetfairAPICredentials bfCreds, String mktId, List<CancelInstruction> instructions, String custRef)
 	{
 		this.EndPoint = EndPoints.BettingAPI;
 		this.GetOutput = true;
