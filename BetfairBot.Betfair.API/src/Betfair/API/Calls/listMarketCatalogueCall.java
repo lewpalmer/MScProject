@@ -2,6 +2,7 @@ package Betfair.API.Calls;
 
 import java.util.List;
 
+import Betfair.API.Requests.MarketFilterRequest;
 import Betfair.API.Requests.listMarketCatalogueRequest;
 import Betfair.API.Utilities.APIMethod;
 import Betfair.API.Utilities.BetfairAPIMethodNames;
@@ -16,7 +17,7 @@ public class listMarketCatalogueCall extends APICall<List<MarketCatalogue>> {
 		this.GetOutput = true;
 		this.MethodName = BetfairAPIMethodNames.LIST_MARKET_CATALOGUE;
 		this.method = APIMethod.GET;
-		this.request = new listMarketCatalogueRequest(eventID);
+		this.request = new MarketFilterRequest(new listMarketCatalogueRequest(eventID));
 	}
 
 }

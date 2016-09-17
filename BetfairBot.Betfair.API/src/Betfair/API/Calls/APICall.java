@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 
 import Betfair.API.Handler.Main.*;
 import Betfair.API.Requests.BetfairRequest;
+import Betfair.API.Requests.MarketFilterRequest;
 import Betfair.API.Utilities.APIMethod;
 
 public abstract class APICall<T> {

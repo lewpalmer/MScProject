@@ -23,7 +23,7 @@ public class CallBetfairAPI {
 				in = new BufferedReader(new InputStreamReader(apiConnection.getInputStream()));
 			}
 			catch(IOException e)
-			{
+			{System.out.println(apiConnection.getResponseMessage());
 				try {
 					throw new CallAPIException(apiConnection.getResponseCode(), apiConnection.getRequestMethod(), "Error in getInputStream");
 				} catch (CallAPIException e1) {

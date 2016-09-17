@@ -74,7 +74,7 @@ public class BuildBetfairAPICall {
 		try {
 			wr = new OutputStreamWriter(apiConnection.getOutputStream());
 			String jsonP = parameters.toJson(request);
-			wr.write(parameters.toJson(request).toString());
+			wr.write(parameters.toJson(request));
 			
 			wr.flush();
 			wr.close();

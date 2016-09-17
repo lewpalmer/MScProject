@@ -1,16 +1,18 @@
 package Betfair.API.Utilities;
 
-import java.time.LocalDateTime;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeRange {
-	private Date from;
-	private Date to;
+	private String from;
+	private String to;
 	
 	public TimeRange(Date to, Date from)
 	{
-		this.to = to;
-		this.from = from;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+		this.to = dateFormat.format(to);
+		this.from = dateFormat.format(from);
 	}
 	
 	public TimeRange(Date to)

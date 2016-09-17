@@ -1,5 +1,6 @@
 package Betfair.API.Requests;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Betfair.API.Utilities.TimeRange;

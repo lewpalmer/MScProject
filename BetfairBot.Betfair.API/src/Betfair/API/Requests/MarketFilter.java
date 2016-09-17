@@ -4,9 +4,9 @@ import java.util.Set;
 
 import Betfair.API.Utilities.*;
 
-public class MarketFilter extends BetfairRequest {
+public class MarketFilter {
 	protected String textQuery;
-	protected Set<String> exchangeIds;
+	//protected Set<String> exchangeIds;//Not currently in use.
 	protected Set<String> eventTypeIds;
 	protected Set<String> eventIds;
 	protected Set<String> competitionIds;
